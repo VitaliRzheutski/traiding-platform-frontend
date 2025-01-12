@@ -7,6 +7,9 @@ import {
     SheetTitle,
     SheetTrigger,
 } from "@/components/ui/sheet"
+import { Button } from '@/components/ui/button'
+import { DragHandleHorizontalIcon } from '@radix-ui/react-icons'
+import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 
 
 const Navbar = () => {
@@ -16,14 +19,30 @@ const Navbar = () => {
 
             <div className='flex items-center gap-3'>
                 <Sheet>
-                    <SheetTrigger>Open</SheetTrigger>
-                    <SheetContent>
+                    <SheetTrigger>
+                        <Button variant="ghost" size="icon" className="rounded-full h-11 w-11">
+                            <DragHandleHorizontalIcon className='h-7 w-7' />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="border-r-0 flex flex-col justify-center">
                         <SheetHeader>
-                            <SheetTitle>Are you absolutely sure?</SheetTitle>
-                            <SheetDescription>
-                                This action cannot be undone. This will permanently delete your account
-                                and remove your data from our servers.
-                            </SheetDescription>
+                            <SheetTitle>
+                                <div className="text-3xl flex justify-center items-center gap1">
+                                    <Avatar>
+                                        <AvatarImage
+                                            className="rounded-full w-12 h-12"
+                                            src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png'
+                                        ></AvatarImage>
+                                    </Avatar>
+                                    <div>
+                                        <span className='font-bold text-orange-700'>
+                                            VRZH
+                                        </span>
+                                        <span>Tread</span>
+                                    </div>
+                                </div>
+                            </SheetTitle>
+
                         </SheetHeader>
                     </SheetContent>
                 </Sheet>
