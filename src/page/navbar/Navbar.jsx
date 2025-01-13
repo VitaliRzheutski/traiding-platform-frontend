@@ -10,6 +10,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { DragHandleHorizontalIcon } from '@radix-ui/react-icons'
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
+import SideBar from './SideBar'
 
 
 const Navbar = () => {
@@ -44,6 +45,7 @@ const Navbar = () => {
                             </SheetTitle>
 
                         </SheetHeader>
+                        <SideBar />
                     </SheetContent>
                 </Sheet>
 
