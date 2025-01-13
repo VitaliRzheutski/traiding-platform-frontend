@@ -23,7 +23,7 @@ const SideBar = () => {
             <div>
                 {menu.map((el) => {
                     return (
-                        <SheetClose className='w-full'>
+                        <SheetClose key={el} className='w-full'>
                             <Button variant="outline" className="flex gap-5 py-6 w-full">
                                 <span className='w-8'>
                                     {el.icon}
