@@ -8,8 +8,8 @@ import {
     SheetTrigger,
 } from "@/components/ui/sheet"
 import { Button } from '@/components/ui/button'
-import { DragHandleHorizontalIcon } from '@radix-ui/react-icons'
-import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
+import { DragHandleHorizontalIcon, MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import SideBar from './SideBar'
 
 
@@ -49,7 +49,24 @@ const Navbar = () => {
                     </SheetContent>
                 </Sheet>
 
+                <p className='text-sm lg:text-base cursor-pointer'>
+                    VRZH Tread
+                </p>
+                <div className='p-0 ml-9'>
+                    <Button variant="outline" className="flex item-center gap-3">
+                        <MagnifyingGlassIcon />
+                        <span>Search</span>
+                    </Button>
+                </div>
 
+
+            </div>
+            <div>
+                <Avatar>
+                    <AvatarFallback>
+                        R
+                    </AvatarFallback>
+                </Avatar>
             </div>
         </div>
     )
