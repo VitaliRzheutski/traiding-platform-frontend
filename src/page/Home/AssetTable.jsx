@@ -39,7 +39,7 @@ export default function AssetTable() {
                         <TableCell>-0.20009</TableCell>
 
 
-                        <TableCell className="text-right">$250.00</TableCell>
+                        <TableCell className="text-right">$80000</TableCell>
                     </TableRow>
                 )}
 
