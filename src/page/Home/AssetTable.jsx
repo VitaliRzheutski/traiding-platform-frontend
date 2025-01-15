@@ -9,9 +9,11 @@ import {
     TableRow
 } from "@/components/ui/table"
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
+import { useNavigate } from 'react-router-dom'
 
 
 export default function AssetTable() {
+    const navigate = useNavigate()
     return (
         <Table>
             <TableHeader>
@@ -27,7 +29,7 @@ export default function AssetTable() {
             <TableBody>
                 {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) =>
                     <TableRow key={index}>
-                        <TableCell className="font-medium flex items-center gap-3">
+                        <TableCell onClick={() => navigate(`/market/bitcoin`)} className="font-medium flex items-center gap-3">
                             <Avatar className='-z-50'>
                                 <AvatarImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png' />
                             </Avatar>
