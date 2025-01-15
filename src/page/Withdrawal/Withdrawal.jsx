@@ -13,7 +13,7 @@ export const Withdrawal = () => {
             <Table className="border">
                 <TableHeader className="py-3" >
                     <TableRow>
-                        <TableHead className="w-[100px]">Date</TableHead>
+                        <TableHead>Date</TableHead>
                         <TableHead>Method</TableHead>
                         <TableHead>Amount</TableHead>
                         <TableHead className="text-right">Status</TableHead>
@@ -26,7 +26,6 @@ export const Withdrawal = () => {
                             <TableCell>Bank</TableCell>
                             <TableCell>-0.20009</TableCell>
                             <TableCell className="text-right">$80000</TableCell>
-
                         </TableRow>
                     )}
 

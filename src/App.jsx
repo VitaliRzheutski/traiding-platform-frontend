@@ -10,7 +10,7 @@ import { Profile } from './page/Profile/Profile'
 import { StockDetails } from './page/StockDetails/StockDetails'
 import { Wallet } from './page/Wallet/Wallet'
 import { WatchList } from './page/Watchlist/WatchList'
-import { Withdrawal } from './page/Withdrawal/withdrawal'
+import { Withdrawal } from './page/Withdrawal/Withdrawal'
 
 function App() {
 
