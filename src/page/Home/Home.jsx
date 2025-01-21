@@ -1,16 +1,26 @@
 import { Button } from '@/components/ui/button'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AssetTable from './AssetTable';
 import StockChart from './StockChart';
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
 import { DotIcon } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCoinList } from '@/State/Coin/Action';
 
 export default function Home() {
+
+    const { coin } = useSelector(store => store)
+    const dispatch = useDispatch()
     const [category, setCategory] = useState("all");
 
     const handleCategory = (value) => {
         setCategory(value)
     }
+
+    useEffect(() => {
+        dispatch(getCoinList(1))
+    }, [])
+
     return (
         <div className='relative'>
             <div className='lg:flex'>
@@ -43,7 +53,7 @@ export default function Home() {
                         </Button>
 
                     </div>
-                    <AssetTable />
+                    <AssetTable coin={coin.coinList} category={category} />
                 </div>
                 <div className='hidden lg:block lg:w-[50%] p-5'>
                     <StockChart />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -12,8 +12,11 @@ import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import { useNavigate } from 'react-router-dom'
 
 
-export default function AssetTable() {
+export default function AssetTable(props) {
+    const coin = props.coin;
+    const category = props.category;
     const navigate = useNavigate()
+
     return (
         <Table>
             <TableHeader>
@@ -26,26 +29,29 @@ export default function AssetTable() {
                     <TableHead className="text-right">Price</TableHead>
                 </TableRow>
             </TableHeader>
+
             <TableBody>
-                {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) =>
-                    <TableRow key={index}>
-                        <TableCell onClick={() => navigate(`/market/bitcoin`)} className="font-medium flex items-center gap-3">
-                            <Avatar className='-z-50'>
-                                <AvatarImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png' />
-                            </Avatar>
-                            <span>Bitcoin</span>
+                {coin.map((item) =>
+                    <TableRow key={item.id}>
+                        <TableCell onClick={() => navigate(`/market/bitcoin`)} className="font-medium flex items-center gap-2">
+                            <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            <span>{item.name}</span>
                         </TableCell>
-                        <TableCell>BTC</TableCell>
-                        <TableCell>8707416005</TableCell>
-                        <TableCell>1234566789</TableCell>
-                        <TableCell>-0.20009</TableCell>
-
-
-                        <TableCell className="text-right">$80000</TableCell>
+                        <TableCell>{item.symbol}</TableCell>
+                        <TableCell>{item.total_volume}</TableCell>
+                        <TableCell>{item.market_cap}</TableCell>
+                        <TableCell>{item.price_change_percentage_24h}</TableCell>
+                        <TableCell className="text-right">${item.current_price}</TableCell>
                     </TableRow>
                 )}
-
             </TableBody>
+
         </Table>
 
 
