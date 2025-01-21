@@ -12,13 +12,21 @@ import { Wallet } from './page/Wallet/Wallet'
 import { WatchList } from './page/Watchlist/WatchList'
 import { Withdrawal } from './page/Withdrawal/Withdrawal'
 import { Auth } from './page/Auth/Auth'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { getUser } from './State/Auth/Action'
 
 function App() {
 
+  const { auth } = useSelector(store => store);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUser(auth.jwt || localStorage.getItem("jwt")))
+  }, [auth.jwt])
+
   return (
     <>
-      <Auth />
-      {false && <div>
+      {auth.user ? <div>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -33,7 +41,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </div>}
+
+      </div> : <Auth />}
 
     </>
   )

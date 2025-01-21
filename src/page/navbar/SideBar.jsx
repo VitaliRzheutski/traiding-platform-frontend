@@ -1,8 +1,10 @@
 import { Button } from '@/components/ui/button'
 import { SheetClose } from '@/components/ui/sheet'
+import { logout } from '@/State/Auth/Action'
 import { ActivityLogIcon, DashboardIcon, ExitIcon, PersonIcon } from '@radix-ui/react-icons'
 import { BookmarkIcon, HomeIcon, LandmarkIcon, WalletIcon } from 'lucide-react'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const menu = [
@@ -20,6 +22,10 @@ const menu = [
 
 const SideBar = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch()
+    const handleLogout = () => {
+        dispatch(logout)
+    }
 
 
     return (
@@ -31,7 +37,12 @@ const SideBar = () => {
                             <Button
                                 variant="outline"
                                 className="flex gap-5 py-6 w-full"
-                                onClick={() => navigate(el.path)}
+                                onClick={() => {
+                                    navigate(el.path)
+                                    if (el.name === "Logout") {
+                                        handleLogout()
+                                    }
+                                }}
                             >
                                 <span className='w-8'>
                                     {el.icon}

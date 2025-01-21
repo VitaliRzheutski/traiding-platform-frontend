@@ -12,9 +12,11 @@ import {
 import { register } from '@/State/Auth/Action'
 import { useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 export const SignupForm = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     const form = useForm({
         resolver: "",
@@ -25,9 +27,10 @@ export const SignupForm = () => {
         }
     })
     const onSubmit = (data) => {
-        dispatch(register(data))
+        dispatch(register(data, navigate))
         console.log(data)
     }
+
     return (
         <div>
             <h1 className='text-xl font-bold text-center pb-3'>Create new account</h1>

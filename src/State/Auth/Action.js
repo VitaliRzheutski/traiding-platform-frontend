@@ -8,7 +8,8 @@ import {
     LOGIN_FAILURE,
     GET_USER_REQUEST,
     GET_USER_SUCCESS,
-    GET_USER_FAILURE
+    GET_USER_FAILURE,
+    LOGOUT
 } from "./ActionTypes"
 
 export const register = (userData) => async (dispatch) => {
@@ -21,13 +22,11 @@ export const register = (userData) => async (dispatch) => {
         const response = await axios.post(`${baseUrl}/auth/signup`, userData);
         const user = response.data;
         console.log("user:", user)
+        console.log("userData:", userData)
 
         dispatch({ type: REGISTER_SUCCESS, payload: user.jwt })
-        try {
-            localStorage.setItem("jwt", user.jwt);
-        } catch (storageError) {
-            console.error("Failed to save JWT in localStorage:", storageError);
-        }
+        localStorage.setItem("jwt", user.jwt);
+        userData.navigate("/");
 
     } catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error.messsage })
@@ -51,12 +50,8 @@ export const login = (userData) => async (dispatch) => {
         console.log("user in login:", user)
 
         dispatch({ type: LOGIN_SUCCESS, payload: user.jwt })
-        try {
-            localStorage.setItem("jwt", user.jwt);
-        } catch (storageError) {
-            console.error("Failed to save JWT in localStorage:", storageError);
-        }
-
+        localStorage.setItem("jwt", user.jwt);
+        userData.navigate("/");
     } catch (error) {
         dispatch({ type: LOGIN_FAILURE, payload: error.messsage })
         console.log(error);
@@ -85,6 +80,10 @@ export const getUser = (jwt) => async (dispatch) => {
         dispatch({ type: GET_USER_FAILURE, payload: error.messsage })
         console.log(error);
     }
+}
+export const logout = (dispatch) => {
+    localStorage.clear();
+    dispatch({ type: LOGOUT })
 }
 
 
