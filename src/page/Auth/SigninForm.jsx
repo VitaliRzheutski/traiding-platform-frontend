@@ -11,9 +11,12 @@ import {
 import {
     Input
 } from '@/components/ui/input'
+import { login } from '@/State/Auth/Action'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 
 export const SigninForm = () => {
+    const dispatch = useDispatch()
 
     const form = useForm({
         resolver: "",
@@ -24,6 +27,7 @@ export const SigninForm = () => {
         }
     })
     const onSubmit = (data) => {
+        dispatch(login(data))
         console.log(data)
     }
     return (
@@ -38,7 +42,7 @@ export const SigninForm = () => {
 
                     <FormField
                         control={form.control}
-                        name="Email"
+                        name="email"
                         render={({ field }) => (
                             <FormItem
                             >

@@ -1,19 +1,20 @@
 import { Button } from '@/components/ui/button'
-import { DialogClose } from '@/components/ui/dialog'
 import {
     Form,
     FormField,
     FormItem,
-    FormLabel,
     FormControl,
     FormMessage
 } from '@/components/ui/form'
 import {
     Input
 } from '@/components/ui/input'
+import { register } from '@/State/Auth/Action'
 import { useForm } from 'react-hook-form'
+import { useDispatch } from 'react-redux'
 
 export const SignupForm = () => {
+    const dispatch = useDispatch()
 
     const form = useForm({
         resolver: "",
@@ -24,6 +25,7 @@ export const SignupForm = () => {
         }
     })
     const onSubmit = (data) => {
+        dispatch(register(data))
         console.log(data)
     }
     return (
@@ -55,7 +57,7 @@ export const SignupForm = () => {
 
                     <FormField
                         control={form.control}
-                        name="Email"
+                        name="email"
                         render={({ field }) => (
                             <FormItem
                             >
