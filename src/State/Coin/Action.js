@@ -72,25 +72,25 @@ export const fetchCoinById = (coinId) => async (dispatch) => {
 }
 
 
-export const fetchCoinDetails = (coinId, jwt) => async (dispatch) => {
 
-    dispatch({ type: FETCH_COIN_BY_ID_REQUEST })
+export const fetchCoinDetails = ({ coinId, jwt }) => async (dispatch) => {
+    dispatch({ type: FETCH_COIN_BY_ID_REQUEST });
 
     try {
-        const { response } = await api.get(`/coins/details/${coinId}`, {
+        const { data } = await axios.get(`${API_BASE_URL}/coins/details/${coinId}`, {
             headers: {
-                Authorization: `Bearer ${jwt}`
-            }
+                Authorization: `Bearer ${jwt}`,
+            },
         });
-        console.log("fetchCoinDetails:", response)
 
-        dispatch({ type: FETCH_COIN_BY_ID_SUCCESS, payload: response.data })
-
+        dispatch({ type: FETCH_COIN_BY_ID_SUCCESS, payload: data });
     } catch (error) {
-        dispatch({ type: FETCH_COIN_BY_ID_FAILURE, payload: error.messsage })
-        console.log(error);
+        dispatch({
+            type: FETCH_COIN_BY_ID_FAILURE,
+            payload: error.message || "Something went wrong",
+        });
     }
-}
+};
 
 export const searchCoin = (keyword) => async (dispatch) => {
 

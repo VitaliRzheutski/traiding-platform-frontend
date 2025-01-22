@@ -14,8 +14,8 @@ import { useNavigate } from 'react-router-dom'
 
 export default function AssetTable(props) {
     const coin = props.coin;
-    const category = props.category;
-    const navigate = useNavigate()
+    // const category = props.category;
+    const navigate = useNavigate();
 
     return (
         <Table>
@@ -33,7 +33,7 @@ export default function AssetTable(props) {
             <TableBody>
                 {coin.map((item) =>
                     <TableRow key={item.id}>
-                        <TableCell onClick={() => navigate(`/market/bitcoin`)} className="font-medium flex items-center gap-2">
+                        <TableCell onClick={() => navigate(`/market/${item.id}`)} className="font-medium flex items-center gap-2">
                             <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
                                 <img
                                     src={item.image}

@@ -73,6 +73,8 @@ const coinReducer = (state = initialState, action) => {
                 loading: false,
                 error: null,
             };
+        case FETCH_COIN_BY_ID_SUCCESS:
+            return { ...state, loading: false, coinDetails: action.payload };
 
 
         case FETCH_COIN_DETAILS_SUCCESS:
