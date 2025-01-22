@@ -25,7 +25,6 @@ export const get50CoinList = () => async (dispatch) => {
 
     try {
         const { data } = await axios.get(`${API_BASE_URL}/coins/top50`);
-        console.log("top50:", data)
 
         dispatch({ type: FETCH_TOP_50_COINS_SUCCESS, payload: data })
 

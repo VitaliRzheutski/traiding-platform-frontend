@@ -5,17 +5,21 @@ import StockChart from './StockChart';
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
 import { DotIcon } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCoinList } from '@/State/Coin/Action';
+import { get50CoinList, getCoinList } from '@/State/Coin/Action';
 
 export default function Home() {
 
     const { coin } = useSelector(store => store)
+    console.log("coin from home:", coin)
     const dispatch = useDispatch()
     const [category, setCategory] = useState("all");
 
     const handleCategory = (value) => {
         setCategory(value)
     }
+    useEffect(() => {
+        dispatch(get50CoinList())
+    }, [category])
 
     useEffect(() => {
         dispatch(getCoinList(1))
@@ -53,7 +57,7 @@ export default function Home() {
                         </Button>
 
                     </div>
-                    <AssetTable coin={coin.coinList} category={category} />
+                    <AssetTable coin={category == "all" ? coin.coinList : coin.top50} category={category} />
                 </div>
                 <div className='hidden lg:block lg:w-[50%] p-5'>
                     <StockChart />
