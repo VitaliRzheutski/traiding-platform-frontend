@@ -20,7 +20,7 @@ export default function AssetTable(props) {
 
     return (
         <Table>
-            <ScrollArea className={`${category == "all" ? "h-[74vh]" : "h-[82vh]"}`}> <TableHeader>
+            <ScrollArea className={`${category == "all" ? "h-[77vh]" : "h-[82vh]"}`}> <TableHeader>
                 <TableRow>
                     <TableHead className="w-[100px]">Coin</TableHead>
                     <TableHead>Symbol</TableHead>

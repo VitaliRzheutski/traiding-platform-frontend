@@ -6,6 +6,16 @@ import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
 import { DotIcon } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { get50CoinList, getCoinList } from '@/State/Coin/Action';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
+
 
 export default function Home() {
 
@@ -57,6 +67,25 @@ export default function Home() {
 
                     </div>
                     <AssetTable coin={category == "all" ? coin.coinList : coin.top50} category={category} />
+                    <div>
+                        <Pagination>
+                            <PaginationContent>
+                                <PaginationItem>
+                                    <PaginationPrevious href="#" />
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationLink href="#">1</PaginationLink>
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationEllipsis />
+                                </PaginationItem>
+                                <PaginationItem>
+                                    <PaginationNext href="#" />
+                                </PaginationItem>
+                            </PaginationContent>
+                        </Pagination>
+
+                    </div>
                 </div>
                 <div className='hidden lg:block lg:w-[50%] p-5'>
                     <StockChart coinId={"ethereum"} />
