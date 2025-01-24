@@ -10,7 +10,6 @@ import { get50CoinList, getCoinList } from '@/State/Coin/Action';
 export default function Home() {
 
     const { coin } = useSelector(store => store)
-    console.log("coin from home:", coin)
     const dispatch = useDispatch()
     const [category, setCategory] = useState("all");
 
@@ -60,7 +59,7 @@ export default function Home() {
                     <AssetTable coin={category == "all" ? coin.coinList : coin.top50} category={category} />
                 </div>
                 <div className='hidden lg:block lg:w-[50%] p-5'>
-                    <StockChart />
+                    <StockChart coinId={"ethereum"} />
                     <div className="flex gap-5 items-center">
                         <div>
                             <Avatar >

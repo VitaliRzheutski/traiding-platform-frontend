@@ -39,12 +39,11 @@ export const fetchMarketChart = (coinId, days, jwt) => async (dispatch) => {
     dispatch({ type: FETCH_MARKET_CHART_REQUEST })
 
     try {
-        const { response } = await api.get(`/coins/${coinId}/chart?days=${days}`, {
+        const response = await api.get(`/coins/${coinId}/chart?days=${days}`, {
             headers: {
                 Authorization: `Bearer ${jwt}`
             }
         });
-        console.log("fetchMarketChart:", response)
 
         dispatch({ type: FETCH_MARKET_CHART_SUCCESS, payload: response.data })
 
@@ -97,7 +96,6 @@ export const searchCoin = (keyword) => async (dispatch) => {
 
     try {
         const { response } = await api.get(`/coins/search?q=${keyword}`);
-        console.log("searchCoin:", response)
 
         dispatch({ type: SEARCH_COIN_SUCCESS, payload: response.data })
 

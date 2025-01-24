@@ -74,7 +74,7 @@ export const StockDetails = () => {
 
             </div>
             <div className="mt-14">
-                <StockChart />
+                <StockChart coinId={id} />
 
             </div>
         </div>
