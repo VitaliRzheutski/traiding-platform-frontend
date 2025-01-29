@@ -2,8 +2,13 @@ import { Button } from '@/components/ui/button';
 import { DialogClose } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input'
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 
 export const WithdrawalForm = () => {
+
+    const dispatch = useDispatch();
+    const { wallet } = useSelector(store => store)
+
     const [amount, setAmount] = useState('');
 
     const handleChange = (e) => {
@@ -17,7 +22,7 @@ export const WithdrawalForm = () => {
             <div className='flex justify-between items-center rounded-md bg-slate-900
             text-xl font-bold px-5 py-4'>
                 <p>Available balance</p>
-                <p>$9000</p>
+                <p>${wallet.userWallet.balance}</p>
             </div>
             <div className='flex flex-col items-center'>
                 <h1>Enter Withdrawal amount</h1>

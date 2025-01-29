@@ -10,15 +10,58 @@ import {
 
 import { ReloadIcon, UpdateIcon } from '@radix-ui/react-icons'
 import { CopyIcon, DollarSign, ShuffleIcon, UploadIcon, WalletIcon } from 'lucide-react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { TopUpForm } from './TopUpForm'
 import { WithdrawalForm } from './WithdrawalForm'
 import { TransferForm } from './TransferForm'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { useDispatch, useSelector } from 'react-redux'
+import { depositMoney, getUserWallet, getWallletTransactions } from '@/State/Wallet/Action'
+import { useLocation, useNavigate } from 'react-router-dom'
+
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search)
+}
 
 
 
 export const Wallet = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { wallet } = useSelector(store => store)
+
+    const query = useQuery();
+    const orderId = query.get("order_id");
+    const paymentId = query.get("payment_id"); //for stripe
+    const razorpayPaymentId = query.get("razorpay_payment_id");
+
+
+    useEffect(() => {
+        handleFetchUserWallet()
+        handleFetchWalletTransaction()
+    }, []);
+
+    useEffect(() => {
+        if (orderId) {
+            dispatch(depositMoney({
+                jwt: localStorage.getItem("jwt"),
+                orderId,
+                paymentId: razorpayPaymentId || paymentId,
+                navigate
+            }))
+        }
+    }, [orderId, paymentId, razorpayPaymentId])
+
+    const handleFetchUserWallet = () => {
+        dispatch(getUserWallet(localStorage.getItem("jwt")))
+    }
+
+    const handleFetchWalletTransaction = () => {
+        dispatch(getWallletTransactions({ jwt: localStorage.getItem("jwt") }))
+    }
+
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="pt-10 w-full lg:w-[60%]">
@@ -30,7 +73,7 @@ export const Wallet = () => {
                                 <div>
                                     <CardTitle className="text-2xl">My Wallet</CardTitle>
                                     <div className="flex items-center gap-2">
-                                        <p className="text-gray-200 text-sm">#475Ed</p>
+                                        <p className="text-gray-200 text-sm">{wallet.userWallet?.id}</p>
                                         <CopyIcon
                                             size={12}
                                             className="cursor-pointer hover:text-slate-300"
@@ -38,13 +81,13 @@ export const Wallet = () => {
                                     </div>
                                 </div>
                             </div>
-                            <ReloadIcon className="w-6 h-6 cursor-pointer hover:text-gray-400" />
+                            <ReloadIcon onClick={handleFetchUserWallet} className="w-6 h-6 cursor-pointer hover:text-gray-400" />
                         </div>
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center">
                             <DollarSign />
-                            <span className="text-2xl font-semibold">20000</span>
+                            <span className="text-2xl font-semibold">{wallet?.userWallet.balance}</span>
                         </div>
                         <div className="flex gap-7 mt-5">
                             <Dialog>
@@ -111,10 +154,10 @@ export const Wallet = () => {
                 <div className="py-5 pt-10">
                     <div className="flex gap-2 items-center pb-5">
                         <h1 className="text-2xl font-semibold">History</h1>
-                        <UpdateIcon className="h-7 w-7 p-0 cursor-pointer hover: text-gray-400" />
+                        <UpdateIcon onClick={handleFetchWalletTransaction} className="h-7 w-7 p-0 cursor-pointer hover: text-gray-400" />
                     </div>
                     <div className="space-y-5">
-                        {[1, 1, 1, 1, 1, 1].map((el, index) => (
+                        {wallet?.transactions.map((el, index) => (
                             <div key={index}>
                                 <Card
                                     className="px-5 flex justify-between
@@ -127,11 +170,11 @@ export const Wallet = () => {
                                             </AvatarFallback>
                                         </Avatar>
                                         <div className="space-y-1">
-                                            <h1>Buy Asset</h1>
-                                            <p className="text-sm text-gray-500">1-14-2025</p>
+                                            <h1>{el.description}</h1>
+                                            <p className="text-sm text-gray-500">{el.description.timestamp}</p>
                                         </div>
                                     </div>
-                                    <p className={`text-green-500  text-right`}>999 USD</p>
+                                    <p className={`text-green-500  text-right`}> {el.amount} USD</p>
                                 </Card>
                             </div>
                         ))}
