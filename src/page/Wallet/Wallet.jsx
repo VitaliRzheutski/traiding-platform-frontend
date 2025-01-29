@@ -62,6 +62,20 @@ export const Wallet = () => {
         dispatch(getWallletTransactions({ jwt: localStorage.getItem("jwt") }))
     }
 
+    function formatDateTime(dateString) {
+        const date = new Date(dateString);
+
+        return new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+        }).format(date);
+    }
+
     return (
         <div className="flex items-center justify-center h-screen">
             <div className="pt-10 w-full lg:w-[60%]">
@@ -170,8 +184,9 @@ export const Wallet = () => {
                                             </AvatarFallback>
                                         </Avatar>
                                         <div className="space-y-1">
-                                            <h1>{el.description}</h1>
-                                            <p className="text-sm text-gray-500">{el.description.timestamp}</p>
+                                            <h1>{el.transactionType
+                                                || el.description}</h1>
+                                            <p className="text-sm text-gray-500">{formatDateTime(el?.timestamp)}</p>
                                         </div>
                                     </div>
                                     <p className={`text-green-500  text-right`}> {el.amount} USD</p>

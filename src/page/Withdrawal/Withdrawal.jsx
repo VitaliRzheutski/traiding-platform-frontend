@@ -6,7 +6,15 @@ import {
     TableHeader,
     TableRow
 } from "@/components/ui/table"
+import { getWithdrawalHistory } from "@/State/Withdrawal/Action";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 export const Withdrawal = () => {
+    const dispatch = useDispatch();
+    const { wallet, withdrawal } = useSelector(store => store)
+    useEffect(() => {
+        dispatch(getWithdrawalHistory(localStorage.getItem("jwt")))
+    }, [])
     return (
         <div className="px-5 lg:px-20">
             <h1 className="font-bold text-3xl pb-5">Withdrawal</h1>
@@ -20,12 +28,12 @@ export const Withdrawal = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) =>
+                    {withdrawal.history?.map((item, index) =>
                         <TableRow key={index}>
-                            <TableCell><p>January 14, 2024 at 10:24</p> </TableCell>
+                            <TableCell><p>{item.date}</p> </TableCell>
                             <TableCell>Bank</TableCell>
-                            <TableCell>-0.20009</TableCell>
-                            <TableCell className="text-right">$80000</TableCell>
+                            <TableCell>${item.amount}</TableCell>
+                            <TableCell className="text-right">{item.status}</TableCell>
                         </TableRow>
                     )}
 

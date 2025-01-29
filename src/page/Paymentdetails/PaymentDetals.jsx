@@ -8,30 +8,44 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { PaymentDetailsForm } from "./PaymentDetailsForm"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { getPaymentDetails } from "@/State/Withdrawal/Action"
 
 export const PaymentDetals = () => {
+    const dispatch = useDispatch();
+    const { withdrawal } = useSelector(store => store);
+    useEffect(() => {
+        dispatch(getPaymentDetails({ jwt: localStorage.getItem("jwt") }))
+    }, [])
+
+    const maskNumber = (number) => {
+        const str = number.toString();
+        return str.slice(0, -4).replace(/\d/g, '*') + str.slice(-4);
+    };
+
     return (
         <div className="px-20">
             <h1 className="text-3xl font-bold py-10">Payment Details</h1>
 
-            {false ? <Card>
+            {withdrawal.paymentDetails ? <Card>
                 <CardHeader>
                     <CardTitle>
-                        Bank of America
+                        {withdrawal.paymentDetails.bankName}
                     </CardTitle>
                     <CardDescription>
                         A/C No
-                        *************1372
+                        {maskNumber(withdrawal.paymentDetails.accountNumber)}
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="flex items-center">
                         <p className="w-32">A/C Holder</p>
-                        <p className="text-gray-400"> : Vitali Rzh</p>
+                        <p className="text-gray-400"> : {withdrawal.paymentDetails.accountHolderName}</p>
                     </div>
                     <div className="flex items-center">
                         <p className="w-32">IFSC</p>
-                        <p className="text-gray-400"> : BoA230000044</p>
+                        <p className="text-gray-400"> : {withdrawal.paymentDetails.ifsc}</p>
                     </div>
                 </CardContent>
             </Card> : <Dialog>
