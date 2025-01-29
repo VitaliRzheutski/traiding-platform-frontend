@@ -37,7 +37,7 @@ const StockChart = ({ coinId }) => {
     const dispatch = useDispatch();
 
     const [activeLable, setActiveLable] = useState(timeSeries[0]);
-    const { coin } = useSelector(store => store)
+    const coin = useSelector(store => store.coin)
     const jwt = localStorage.getItem("jwt")
 
     useEffect(() => {

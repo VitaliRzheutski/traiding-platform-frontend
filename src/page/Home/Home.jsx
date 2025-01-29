@@ -20,6 +20,7 @@ import {
 export default function Home() {
 
     const { coin } = useSelector(store => store)
+    console.log("?coin:", coin)
     const dispatch = useDispatch()
     const [category, setCategory] = useState("all");
 
