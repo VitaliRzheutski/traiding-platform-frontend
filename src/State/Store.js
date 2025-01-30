@@ -4,12 +4,14 @@ import { combineReducers, legacy_createStore, applyMiddleware } from "redux";
 import coinReducer from "./Coin/Reducer";
 import walletReducer from "./Wallet/Reducer";
 import withdrawalReducer from "./Withdrawal/Reducer";
+import orderReducer from "./Order/Reducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     coin: coinReducer,
     wallet: walletReducer,
-    withdrawal: withdrawalReducer
+    withdrawal: withdrawalReducer,
+    order: orderReducer
 });
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
