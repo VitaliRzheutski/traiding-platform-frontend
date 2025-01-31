@@ -24,6 +24,12 @@ const assetReducer = (state = initialState, action) => {
                 loading: false,
                 error: action.null,
             }
+        case types.GET_ASSET_DETAILS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                error: null
+            };
         case types.GET_ASSET_FAILURE:
         case types.GET_USER_ASSETS_FAILURE:
             return {
