@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { fetchCoinDetails } from "@/State/Coin/Action"
+import { addItemToWatchlist } from "@/State/Watchlist/Action"
 
 export const StockDetails = () => {
     const coinDetails = useSelector(store => store.coin.coinDetails)
@@ -28,6 +29,10 @@ export const StockDetails = () => {
     useEffect(() => {
         dispatch(fetchCoinDetails({ coinId: id, jwt: localStorage.getItem("jwt") }))
     }, [id])
+
+    const handleAddToWatchlist = () => {
+        dispatch(addItemToWatchlist({ coinId: coinDetails?.id, jwt: localStorage.getItem('jwt') }))
+    }
 
     return (
         <div className="p-5 mt-5">
@@ -56,7 +61,7 @@ export const StockDetails = () => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <Button>
+                    <Button onClick={handleAddToWatchlist}>
                         {true ? <BookmarkFilledIcon className="h-6 w-6" /> :
                             <BookmarkIcon className="h-6 w-6" />}
                     </Button>

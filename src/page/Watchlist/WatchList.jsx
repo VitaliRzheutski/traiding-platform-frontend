@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
     Table,
     TableBody,
@@ -10,8 +10,18 @@ import {
 import { Avatar, AvatarImage } from '@radix-ui/react-avatar';
 import { Button } from '@/components/ui/button';
 import { BookmarkFilledIcon } from '@radix-ui/react-icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserWatchlist } from '@/State/Watchlist/Action';
 
 export const WatchList = () => {
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getUserWatchlist(localStorage.getItem("jwt")))
+    }, [])
+    const { watchlist } = useSelector(store => store);
+
+
     const handleRemoveFromWatchlist = (value) => {
         console.log("value:", value)
     }
@@ -32,19 +42,19 @@ export const WatchList = () => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((item, index) =>
+                    {watchlist.items.map((item, index) =>
                         <TableRow key={index}>
                             <TableCell className="font-medium flex items-center gap-3">
                                 <Avatar className='-z-50'>
-                                    <AvatarImage src='https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/800px-Bitcoin.svg.png' />
+                                    <AvatarImage src={item.image} />
                                 </Avatar>
-                                <span>Bitcoin</span>
+                                <span>{item.name}</span>
                             </TableCell>
-                            <TableCell>BTC</TableCell>
+                            <TableCell>{item.symbol}</TableCell>
                             <TableCell>8707416005</TableCell>
                             <TableCell>1234566789</TableCell>
                             <TableCell>-0.20009</TableCell>
-                            <TableCell className="">$80000</TableCell>
+                            <TableCell className="">${item.current_price}</TableCell>
                             <TableCell className="text-right">
                                 <Button
                                     variant="ghost"
