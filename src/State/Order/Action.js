@@ -58,7 +58,7 @@ export const getAllOrdersForUser = ({ jwt, orderType, assetSymbol }) => async (d
     dispatch({ type: types.GET_ALL_ORDERS_REQUEST })
 
     try {
-        const response = await api.get(`/api/orders/`, {
+        const response = await api.get(`/api/orders`, {
             headers: {
                 Authorization: `Bearer ${jwt}`
             },

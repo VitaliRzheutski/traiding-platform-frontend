@@ -20,6 +20,7 @@ const orderReducer = (state = initialState, action) => {
             };
         case types.PAY_ORDER_SUCCESS:
         case types.GET_ORDER_SUCCESS:
+        case types.GET_ALL_ORDERS_SUCCESS:
             return {
                 ...state,
                 order: action.payload,
@@ -28,6 +29,7 @@ const orderReducer = (state = initialState, action) => {
             }
         case types.PAY_ORDER_FAILURE:
         case types.GET_ORDER_FAILURE:
+        case types.GET_ALL_ORDERS_FAILURE:
             return {
                 ...state,
                 loading: false,
